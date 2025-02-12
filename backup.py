@@ -23,14 +23,14 @@ def get_backup_directory():
     home_dir = get_home_directory()
 
     if os_type == "Windows":
-        return os.path.join(home_dir, "Documents")
-    elif os_type == "Linux":
-        return os.path.join(home_dir, "Documents")
-    elif os_type == "Darwin":
-        return os.path.join(home_dir, "Documents")
-    else:
-        print(Fore.RED + "❌ OS non supporté !" + Style.RESET_ALL)
-        return None
+        backup_dir = os.path.join(home_dir, "Documents")
+    else:  # Linux et MacOS
+        backup_dir = os.path.join(home_dir, "backup")
+
+    if not os.path.exists(backup_dir):
+        os.makedirs(backup_dir, exist_ok=True)
+
+    return backup_dir
 
 
 def create_backup():
