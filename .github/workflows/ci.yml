@@ -26,12 +26,24 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: 🔍 Vérifier la structure des fichiers
-        run: |
-          pwd  
-          ls -la 
-          echo "Contenu de tests/:"
-          ls -la tests/
-
       - name: Run tests
         run: pytest --maxfail=1 --disable-warnings
+
+      - name: Send Email Notification
+        if: always()
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          username: ${{ secrets.EMAIL_SENDER }}
+          password: ${{ secrets.EMAIL_PASSWORD }}
+          subject: "GitHub Actions - Résultat des tests"
+          to: "cedric.surquin@gmail.com"
+          from: "GitHub Actions CI"
+          body: |
+            🚀 Résultat des tests pour le projet backup_script :
+            
+            - ✅ Tests réussis : ${{ job.status == 'success' }}
+            - ❌ Tests échoués : ${{ job.status == 'failure' }}
+
+            Détails ici : https://github.com/flavienLh/backup_script/actions
