@@ -22,8 +22,10 @@ def test_get_home_directory():
 
 def test_get_backup_directory():
     backup_dir = get_backup_directory()
+
+    print(f"📂 Répertoire de sauvegarde sélectionné : {backup_dir}")
     assert backup_dir is not None
-    assert os.path.exists(backup_dir)
+    assert os.path.exists(backup_dir), f"Le dossier {backup_dir} n'existe pas !"
     assert os.path.isdir(backup_dir)
 
 @pytest.fixture
