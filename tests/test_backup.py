@@ -1,9 +1,15 @@
 import os
 import sys
 import pytest
-from backup import detect_os, get_home_directory, get_backup_directory, create_backup
 
-sys.path.insert(0, os.path.abspath(os.path.dirname(__file__) + "/.."))
+# ✅ Vérifie si le script tourne dans GitHub Actions
+print("🔍 Debug: Current working directory:", os.getcwd())
+print("🔍 Debug: Files in current directory:", os.listdir(os.getcwd()))
+
+# ✅ Ajoute le dossier parent pour que `backup.py` soit accessible
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+
+from backup import detect_os, get_home_directory, get_backup_directory, create_backup
 
 def test_detect_os():
     os_type = detect_os()
@@ -31,4 +37,3 @@ def test_create_backup(temporary_backup):
     backup_path = temporary_backup
     assert os.path.exists(backup_path)
     assert os.path.isfile(backup_path)
-

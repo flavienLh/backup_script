@@ -26,7 +26,12 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Run tests
+      - name: 🔍 Vérifier la structure des fichiers
         run: |
-          ls -la
-          pytest --maxfail=1 --disable-warnings
+          pwd  
+          ls -la 
+          echo "Contenu de tests/:"
+          ls -la tests/
+
+      - name: Run tests
+        run: pytest --maxfail=1 --disable-warnings
