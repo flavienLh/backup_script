@@ -1,6 +1,9 @@
 import os
+import sys
 import pytest
 from backup import detect_os, get_home_directory, get_backup_directory, create_backup
+
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 def test_detect_os():
     os_type = detect_os()
