@@ -38,7 +38,7 @@ jobs:
           username: ${{ secrets.EMAIL_SENDER }}
           password: ${{ secrets.EMAIL_PASSWORD }}
           subject: "GitHub Actions - Résultat des tests"
-          to: "cedric.surquin@gmail.com"
+          to: ${{ secrets.EMAIL_RECEIVER }}
           from: "GitHub Actions CI"
           body: |
             🚀 Résultat des tests pour le projet backup_script :
